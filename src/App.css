@@ -27,3 +27,13 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+img {
+  float: right;
+  width: 400px;
+  height: auto;
+}
+
+.card {
+  overflow: auto;
+}
