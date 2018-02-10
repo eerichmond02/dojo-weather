@@ -1,4 +1,4 @@
-import { SELECT_CITY, UPDATE_WEATHER, UPDATE_CITIES } from './types';
+import { SELECT_CITY, UPDATE_WEATHER, UPDATE_CITIES} from './types';
 import { WeatherData, CityStats } from './reducer';
 import axios from 'axios';
 
@@ -34,3 +34,16 @@ export const fetchCityData = () => {
 export const updateCities = (cities) => {
 	return {type: UPDATE_CITIES, payload: cities};
 }
+
+export const addCity = (cityName, state) => {
+  return (dispatch, getState) => {
+    let newCity = {
+      cityName: cityName,
+      state: state,
+      imageURL: "https://images.pexels.com/photos/466685/pexels-photo-466685.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb"
+    };
+    axios.post('http://5a7de35350403e0012036338.mockapi.io/api/cities', newCity).then(response => {
+      dispatch(fetchCityData());
+    });
+  };
+};

@@ -39,7 +39,7 @@ class CityWeather extends Component {
     if (this.props.selectedCity) {
       return (
         <div className="card">
-          <h2>{this.props.selectedCity.cityName}, {this.props.selectedCity.state}</h2>
+          <h2>{this.props.selectedCity.cityName + ( this.props.selectedCity.state ? ', ' + this.props.selectedCity.state : '')}</h2>
           <img src={this.props.selectedCity.imageUrl} alt='City'/> 
           {this.props.weatherData ? 
             <div>

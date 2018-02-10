@@ -44,6 +44,7 @@ const reducer = (state=initialState, action) => {
                 ...state,
                 cities: action.payload
             }
+
         default: 
             return state;
     }

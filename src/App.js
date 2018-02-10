@@ -6,6 +6,7 @@ import CityWeather from "./CityWeather";
 import { selectCity, fetchCityData } from "./State/actions";
 import { connect } from "react-redux";
 import CityNotFound from './CityNotFound'
+import AddCity from "./AddCity";
 
 const CustomLink = (props) => {
   const {to, label, exact, city, selectCity} = props;
@@ -33,21 +34,21 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
           <h1>Dojo Weather Forecast</h1>
+          <Link to='/add'>Add a Weather Forecast</Link>
           <ul className="tabs">
             {this.props.cities.map((city) => (
-              <WrappedCustomLink key={city.id} city={city} selectCity={this.props.selectCity} label={`${city.cityName}, ${city.state}`} to={`/${city.cityName}`} />
+              <WrappedCustomLink key={city.id} city={city} selectCity={this.props.selectCity} 
+              label={city.cityName + ( city.state ? ', ' + city.state : '')} to={`/${city.cityName}`} />
             ))}
           </ul>
           <Switch>
           {this.props.cities.map((city) => (
-          <Route key={city.id} exact={true} path={`/${city.cityName}`} onEnter={() => this.props.selectCity(city)} render={(renderProps => {
-              //this.props.selectCity(city);
+          <Route key={city.id} exact={true} path={`/${city.cityName}`} onEnter={() => this.props.selectCity(city)} 
+          render={(renderProps => {
               return(<CityWeather city={city}/>)
             })} /> 
-/*           <Route key={city.id} exact={true} path={`/${city.cityName}`} render={(renderProps => {
-              return(<CityWeather city={city}/>)
-            })} />*/
           ))} 
+          <Route path='/add' component={AddCity} />
           <Route path='/:city' component={CityNotFound} />
           </Switch>
         </div>
