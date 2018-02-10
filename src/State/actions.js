@@ -3,12 +3,12 @@ import { WeatherData, CityStats } from './reducer';
 import axios from 'axios';
 
 export const selectCity = (city) => {
-    return {type: SELECT_CITY, payload: city};
+	return {type: SELECT_CITY, payload: city};
 }
 
 export const fetchWeatherData = (cityName, units) => {
     return (dispatch, getState) => {
-      axios.get('http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=' + units + '&appid=dd438c01c49d8b94b360b49a94fe760f').then(({data}) => {
+      axios.get('http://openweathermap.org/data/2.5/weather?q=' + cityName + '&units=' + units + '&appid=b6907d289e10d714a6e88b30761fae22').then(({data}) => {
       	console.log(data);
       	let weather = new WeatherData(data.main.humidity, data.main.temp, data.main.temp_max, data.main.temp_min, data.weather[0].description)
         dispatch(updateWeatherData(weather));
