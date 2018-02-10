@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import "./App.css";
 import "./ui-toolkit/css/nm-cx/main.css";
+import "./App.css";
 import { BrowserRouter, Route, Link, withRouter, Switch } from "react-router-dom";
 import CityWeather from "./CityWeather";
 import { selectCity, fetchCityData } from "./State/actions";
@@ -22,12 +22,7 @@ const CustomLink = (props) => {
   );
 }
 
-const WrappedCustomLink = withRouter(connect(mapStateToProps, mapDispatchToProps)(CustomLink));
-
 class App extends Component {
-  constructor(props) {
-    super(props)
-  }
 
   componentDidMount() {
     this.props.fetchCityData();
@@ -45,10 +40,13 @@ class App extends Component {
           </ul>
           <Switch>
           {this.props.cities.map((city) => (
-            <Route key={city.id} exact={true} path={`/${city.cityName}`} onEnter={() => this.props.selectCity(city)} render={(renderProps => {
-              this.props.selectCity(city);
-              return(<CityWeather />)
-            })} />
+          <Route key={city.id} exact={true} path={`/${city.cityName}`} onEnter={() => this.props.selectCity(city)} render={(renderProps => {
+              //this.props.selectCity(city);
+              return(<CityWeather city={city}/>)
+            })} /> 
+/*           <Route key={city.id} exact={true} path={`/${city.cityName}`} render={(renderProps => {
+              return(<CityWeather city={city}/>)
+            })} />*/
           ))} 
           <Route path='/:city' component={CityNotFound} />
           </Switch>
@@ -75,6 +73,8 @@ const mapDispatchToProps = (dispatch) => {
       }
   }
 }
+
+const WrappedCustomLink = withRouter(connect(mapStateToProps, mapDispatchToProps)(CustomLink));
 const WrapperApp = connect(mapStateToProps, mapDispatchToProps)(App);
 
 export default WrapperApp;
